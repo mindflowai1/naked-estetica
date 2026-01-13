@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { motion } from 'framer-motion';
 import Button from './Button';
@@ -54,9 +55,9 @@ const TattooRemoval: React.FC = () => {
             <div className="absolute inset-0 border border-white/10 rounded-sm p-4">
               <div className="w-full h-full overflow-hidden bg-charcoal/20 relative">
                  <img 
-                    src="https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?q=80&w=1935&auto=format&fit=crop" 
-                    alt="Laser Removal Technology" 
-                    className="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity duration-700"
+                    src="https://ptotpfdlgsohxmsrfczs.supabase.co/storage/v1/object/public/bucket/remocao-pigmento1-1.jpg" 
+                    alt="Procedimento de Remoção de Tatuagem na Naked Laser" 
+                    className="w-full h-full object-cover opacity-90 hover:opacity-100 transition-opacity duration-700"
                   />
                   {/* Overlay Gradient */}
                   <div className="absolute inset-0 bg-gradient-to-t from-cocoa/80 to-transparent"></div>

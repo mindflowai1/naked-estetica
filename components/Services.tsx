@@ -24,14 +24,14 @@ const servicesData: ServiceItem[] = [
     title: 'BIOESTIMULADORES', 
     description: 'Estimula a produção natural de colágeno.', 
     category: 'estetica',
-    image: 'https://images.unsplash.com/photo-1608248597279-f99d160bfbc8?q=80&w=2670&auto=format&fit=crop'
+    image: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?q=80&w=1974&auto=format&fit=crop'
   },
   { 
     id: '4', 
     title: 'BOTOX', 
     description: 'Suaviza rugas e linhas de expressão.', 
     category: 'estetica',
-    image: 'https://images.unsplash.com/photo-1588510883462-765002a91d51?q=80&w=2071&auto=format&fit=crop'
+    image: 'https://images.unsplash.com/photo-1552693673-1bf958298935?q=80&w=2073&auto=format&fit=crop'
   },
   { 
     id: '5', 

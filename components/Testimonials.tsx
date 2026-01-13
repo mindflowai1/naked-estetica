@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Star, ChevronLeft, ChevronRight, Quote } from 'lucide-react';
@@ -22,70 +23,91 @@ const Testimonials: React.FC = () => {
   };
 
   return (
-    <section id={SectionId.TESTIMONIALS} className="py-24 bg-beige/30">
-      <div className="max-w-[1400px] mx-auto px-6">
+    <section id={SectionId.TESTIMONIALS} className="py-24 lg:py-40 bg-off-white relative overflow-hidden">
+      {/* Texture & Noise */}
+      <div className="absolute inset-0 bg-marble-noise opacity-20 pointer-events-none" />
+      
+      <div className="max-w-[1400px] mx-auto px-6 lg:px-12 relative z-10">
         
-        <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
-          <div>
-            <h2 className="font-serif text-4xl lg:text-5xl text-cocoa mb-2">Depoimentos</h2>
-            <p className="font-sans text-charcoal/70 uppercase tracking-widest text-sm">O que nossos clientes dizem sobre nós</p>
+        <div className="flex flex-col md:flex-row justify-between items-center md:items-end mb-24 gap-12">
+          <div className="text-center md:text-left">
+            <span className="text-[10px] uppercase tracking-[0.5em] text-nude font-black mb-4 block">Prova Social</span>
+            <h2 className="font-serif text-5xl lg:text-7xl text-cocoa mb-4">Depoimentos</h2>
+            <p className="font-sans text-charcoal uppercase tracking-[0.3em] text-[10px] font-black">O que nossos clientes dizem sobre nós</p>
           </div>
 
-          {/* Trust Index Simulation */}
-          <div className="flex items-center gap-4 bg-white px-6 py-3 rounded-sm shadow-sm">
-             <div className="flex gap-1 text-nude">
-               {[1,2,3,4,5].map(i => <Star key={i} size={16} fill="#BF9F88" />)}
+          {/* Trust Index Dark Glass Card */}
+          <div className="flex items-center gap-6 bg-white/5 backdrop-blur-xl px-8 py-5 rounded-sm border border-white/10 shadow-2xl">
+             <div className="flex gap-1.5 text-nude">
+               {[1,2,3,4,5].map(i => <Star key={i} size={18} fill="#BF9F88" className="drop-shadow-[0_0_8px_rgba(191,159,136,0.3)]" />)}
              </div>
-             <div className="border-l border-line pl-4">
-               <span className="block text-cocoa font-serif font-bold leading-none">EXCELENTE</span>
-               <span className="text-xs text-charcoal/60">Com base em 332 avaliações</span>
+             <div className="border-l border-white/10 pl-6">
+               <span className="block text-cocoa font-serif text-xl font-bold leading-none tracking-tight">EXCELENTE</span>
+               <span className="text-[9px] uppercase tracking-[0.2em] text-charcoal font-black mt-2 block">332 avaliações no Google</span>
              </div>
           </div>
         </div>
 
         {/* Carousel */}
         <div className="relative">
-          <div className="overflow-hidden">
+          <div className="overflow-hidden min-h-[400px] flex items-center">
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentIndex}
-                initial={{ opacity: 0, x: 50 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -50 }}
-                transition={{ duration: 0.5 }}
-                className="max-w-3xl mx-auto text-center"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -30 }}
+                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                className="max-w-4xl mx-auto text-center"
               >
-                <div className="mb-8 flex justify-center">
-                  <div className="w-16 h-16 rounded-full bg-nude/10 flex items-center justify-center">
-                    <Quote className="text-nude w-8 h-8 fill-nude/20" />
-                  </div>
+                <div className="mb-12 flex justify-center">
+                  <Quote className="text-nude w-16 h-16 opacity-10" />
                 </div>
                 
-                <p className="font-serif text-2xl lg:text-4xl text-cocoa mb-8 leading-snug">
+                <p className="font-serif text-3xl lg:text-5xl text-cocoa mb-12 leading-snug lg:leading-[1.3] font-light">
                   "{reviews[currentIndex].text}"
                 </p>
 
-                <div className="flex flex-col items-center gap-2">
-                  <span className="font-sans font-bold text-cocoa uppercase tracking-wider">{reviews[currentIndex].name}</span>
-                  <div className="flex items-center gap-2 text-sm text-charcoal/60">
+                <div className="flex flex-col items-center gap-4">
+                  <div className="h-[1px] w-12 bg-nude mb-2"></div>
+                  <span className="font-sans font-black text-cocoa uppercase tracking-[0.3em] text-[11px]">{reviews[currentIndex].name}</span>
+                  <div className="flex items-center gap-3 text-[10px] text-charcoal font-black uppercase tracking-[0.2em]">
+                    <span>{reviews[currentIndex].date}</span>
+                    <span className="text-nude/40">•</span>
                     <div className="flex gap-0.5">
-                      {[1,2,3,4,5].map(i => <Star key={i} size={10} fill="#BF9F88" className="text-nude" />)}
+                      {[1,2,3,4,5].map(i => <Star key={i} size={8} fill="#BF9F88" className="text-nude" />)}
                     </div>
-                    <span>• {reviews[currentIndex].date}</span>
                   </div>
                 </div>
               </motion.div>
             </AnimatePresence>
           </div>
 
-          {/* Navigation */}
-          <div className="flex justify-center gap-4 mt-12">
-            <button onClick={prev} className="p-3 rounded-full border border-cocoa/20 text-cocoa hover:bg-cocoa hover:text-white transition-all">
-              <ChevronLeft size={20} />
+          {/* Navigation Controls */}
+          <div className="flex justify-between items-center absolute top-1/2 -translate-y-1/2 left-0 right-0 pointer-events-none">
+            <button 
+              onClick={prev} 
+              className="p-4 rounded-full border border-white/5 text-charcoal hover:text-nude hover:border-nude/50 transition-all pointer-events-auto bg-cream/50 backdrop-blur-sm lg:translate-x-[-50%]"
+            >
+              <ChevronLeft size={24} />
             </button>
-            <button onClick={next} className="p-3 rounded-full border border-cocoa/20 text-cocoa hover:bg-cocoa hover:text-white transition-all">
-              <ChevronRight size={20} />
+            <button 
+              onClick={next} 
+              className="p-4 rounded-full border border-white/5 text-charcoal hover:text-nude hover:border-nude/50 transition-all pointer-events-auto bg-cream/50 backdrop-blur-sm lg:translate-x-[50%]"
+            >
+              <ChevronRight size={24} />
             </button>
+          </div>
+
+          {/* Pagination Indicators */}
+          <div className="flex justify-center gap-3 mt-16">
+            {reviews.map((_, i) => (
+              <button 
+                key={i}
+                onClick={() => setCurrentIndex(i)}
+                className={`h-[2px] transition-all duration-500 ${currentIndex === i ? 'w-12 bg-nude' : 'w-4 bg-white/10 hover:bg-white/20'}`}
+              />
+            ))}
           </div>
         </div>
 

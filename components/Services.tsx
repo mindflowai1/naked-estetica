@@ -1,10 +1,10 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Plus, ArrowUpRight } from 'lucide-react';
 import { SectionId, ServiceItem } from '../types';
 
 const servicesData: ServiceItem[] = [
-  // Tratamentos Estéticos
   { 
     id: '1', 
     title: 'DEPILAÇÃO A LASER', 
@@ -22,14 +22,14 @@ const servicesData: ServiceItem[] = [
   { 
     id: '3', 
     title: 'BIOESTIMULADORES', 
-    description: 'Estimula a produção natural de colágeno.', 
+    description: 'Estimula a produção natural de colágeno para firmeza.', 
     category: 'estetica',
     image: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?q=80&w=1974&auto=format&fit=crop'
   },
   { 
     id: '4', 
     title: 'BOTOX', 
-    description: 'Suaviza rugas e linhas de expressão.', 
+    description: 'Suaviza rugas e linhas de expressão com precisão.', 
     category: 'estetica',
     image: 'https://images.unsplash.com/photo-1552693673-1bf958298935?q=80&w=2073&auto=format&fit=crop'
   },
@@ -40,8 +40,6 @@ const servicesData: ServiceItem[] = [
     category: 'estetica',
     image: 'https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?q=80&w=2070&auto=format&fit=crop'
   },
-  
-  // Capilar
   { 
     id: '6', 
     title: 'TERAPIA CAPILAR', 
@@ -56,8 +54,6 @@ const servicesData: ServiceItem[] = [
     category: 'capilar',
     image: 'https://images.unsplash.com/photo-1620331311520-246422fd82f9?q=80&w=2070&auto=format&fit=crop'
   },
-  
-  // Tatuagem
   { 
     id: '8', 
     title: 'REMOÇÃO DE TATUAGEM', 
@@ -68,123 +64,160 @@ const servicesData: ServiceItem[] = [
   { 
     id: '9', 
     title: 'REMOÇÃO DE MICRO', 
-    description: 'Correção e remoção de sobrancelhas definitivas (Micropigmentação).', 
+    description: 'Correção e remoção de sobrancelhas definitivas.', 
     category: 'tatuagem',
     image: 'https://images.unsplash.com/photo-1522337660859-02fbefca4702?q=80&w=2069&auto=format&fit=crop'
   },
 ];
 
 const categories = [
-  { id: 'estetica', label: 'Tratamentos Estéticos' },
-  { id: 'capilar', label: 'Tratamentos Capilares' },
-  { id: 'tatuagem', label: 'Remoção de Tatuagem' },
+  { id: 'estetica', label: 'Estética' },
+  { id: 'capilar', label: 'Capilar' },
+  { id: 'tatuagem', label: 'Tatuagem' },
 ];
 
 const Services: React.FC = () => {
   const [activeTab, setActiveTab] = useState<string>('estetica');
-  const [hoveredService, setHoveredService] = useState<string | null>(null);
-
   const filteredServices = servicesData.filter(s => s.category === activeTab);
 
   return (
-    <section id={SectionId.SERVICES} className="py-24 lg:py-32 bg-cream">
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
+    <section id={SectionId.SERVICES} className="py-24 lg:py-40 bg-cream relative overflow-hidden">
+      <div className="absolute inset-0 bg-marble-noise opacity-30 pointer-events-none"></div>
+      
+      <div className="max-w-[1400px] mx-auto px-6 lg:px-12 relative z-10">
         
-        {/* Header */}
-        <div className="flex flex-col mb-20">
+        {/* Header Section */}
+        <div className="flex flex-col mb-20 lg:mb-32 text-center items-center">
+          <motion.div
+             initial={{ opacity: 0, y: -10 }}
+             whileInView={{ opacity: 1, y: 0 }}
+             viewport={{ once: true }}
+             className="mb-8"
+          >
+             <span className="text-[10px] uppercase tracking-[0.6em] text-nude font-black px-8 py-3 border border-nude/20 rounded-full inline-block">
+               Menu de Excelência
+             </span>
+          </motion.div>
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="font-serif text-4xl lg:text-6xl text-cocoa mb-4"
+            className="font-serif text-5xl lg:text-8xl text-cocoa mb-8"
           >
             Nossos Serviços
           </motion.h2>
+          <motion.div
+            initial={{ width: 0 }}
+            whileInView={{ width: "100px" }}
+            className="h-[1px] bg-nude/30 mb-8"
+          ></motion.div>
           <motion.p 
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="font-sans text-lg text-charcoal/80"
+            className="font-sans text-lg lg:text-xl text-charcoal font-light italic tracking-wide"
           >
             Cuidados Personalizados para Sua Beleza
           </motion.p>
         </div>
 
-        {/* Tabs */}
-        <div className="flex flex-wrap gap-4 mb-16 border-b border-line/30 pb-4">
+        {/* Categories Tab Bar */}
+        <div className="flex flex-wrap justify-center gap-2 md:gap-8 mb-24 border-b border-white/5 pb-2">
           {categories.map((cat) => (
             <button
               key={cat.id}
               onClick={() => setActiveTab(cat.id)}
-              className={`relative px-6 py-3 rounded-full text-sm uppercase tracking-wide transition-all duration-300 ${
-                activeTab === cat.id ? 'text-white' : 'text-cocoa hover:bg-white/50'
-              }`}
+              className={`group relative px-6 md:px-10 py-6 transition-all duration-500`}
             >
+              <span className={`text-[11px] md:text-[12px] uppercase tracking-[0.4em] font-black transition-colors duration-500 ${
+                activeTab === cat.id ? 'text-cocoa' : 'text-charcoal group-hover:text-nude'
+              }`}>
+                {cat.label}
+              </span>
               {activeTab === cat.id && (
                 <motion.div
-                  layoutId="activeTab"
-                  className="absolute inset-0 bg-cocoa rounded-full"
-                  transition={{ type: "spring", stiffness: 500, damping: 30 }}
-                />
+                  layoutId="activeUnderline"
+                  className="absolute bottom-0 left-0 right-0 h-[2px] bg-nude"
+                  transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                >
+                  <div className="absolute inset-0 bg-nude blur-[4px] opacity-50"></div>
+                </motion.div>
               )}
-              <span className="relative z-10">{cat.label}</span>
             </button>
           ))}
         </div>
 
-        {/* Grid */}
+        {/* Services Grid */}
         <motion.div 
           layout
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-10"
         >
           <AnimatePresence mode="popLayout">
             {filteredServices.map((service, index) => (
               <motion.div
                 key={service.id}
                 layout
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.3, delay: index * 0.05 }}
-                onMouseEnter={() => setHoveredService(service.id)}
-                onMouseLeave={() => setHoveredService(null)}
-                className={`group relative bg-white overflow-hidden border border-transparent hover:border-nude/30 min-h-[300px] transition-all duration-500 hover:shadow-2xl hover:shadow-cocoa/10 rounded-sm ${
-                  index === 0 && activeTab === 'estetica' ? 'lg:col-span-2' : ''
-                }`}
+                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: index * 0.1 }}
+                className="group relative bg-[#141312] aspect-[3/4] lg:aspect-[4/5] overflow-hidden rounded-sm border border-white/[0.03] hover:border-nude/30 transition-all duration-700 shadow-2xl"
               >
-                {/* Background Image Layer */}
-                <div className="absolute inset-0 z-0 select-none pointer-events-none">
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/95 via-white/70 to-white/20 z-10 transition-colors duration-500 group-hover:from-white/90 group-hover:via-white/60 group-hover:to-white/10" />
-                  
+                {/* Background Image Container */}
+                <div className="absolute inset-0 z-0">
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0F0E0D] via-transparent to-transparent opacity-90 group-hover:opacity-70 transition-opacity duration-1000 z-10" />
                   <img 
                     src={service.image} 
-                    alt="" 
-                    className="w-full h-full object-cover opacity-50 group-hover:opacity-80 group-hover:scale-105 transition-all duration-1000 grayscale group-hover:grayscale-0"
+                    alt={service.title} 
+                    className="w-full h-full object-cover transition-all duration-[2.5s] group-hover:scale-110 grayscale opacity-40 group-hover:opacity-80 group-hover:grayscale-0"
                   />
                 </div>
 
-                {/* Content Layer */}
-                <div className="relative z-20 p-8 lg:p-10 h-full flex flex-col justify-between">
-                  <div>
-                    <h3 className="font-serif text-2xl lg:text-3xl text-cocoa mb-4 leading-tight">
+                {/* Content Overlay */}
+                <div className="relative z-20 p-8 lg:p-12 h-full flex flex-col justify-end">
+                  <div className="transform translate-y-8 group-hover:translate-y-0 transition-transform duration-700 ease-[0.22, 1, 0.36, 1]">
+                    
+                    <span className="block text-nude text-[9px] uppercase tracking-[0.5em] font-black mb-6 opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-100">
+                      Ver detalhes
+                    </span>
+                    
+                    <h3 className="font-serif text-3xl lg:text-4xl text-cocoa mb-6 leading-[1.1] font-light">
                       {service.title}
                     </h3>
-                    <p className="font-sans text-charcoal/80 leading-relaxed text-sm lg:text-base max-w-sm font-medium">
+                    
+                    <p className="font-sans text-charcoal/80 leading-relaxed text-sm lg:text-base mb-10 opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-200 line-clamp-3">
                       {service.description}
                     </p>
-                  </div>
-
-                  <div className="mt-8 flex justify-end">
-                     <button className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-nude group-hover:text-cocoa transition-colors">
-                       Ver Mais
-                       <span className="block h-[1px] w-8 bg-nude group-hover:bg-cocoa transition-colors"></span>
-                     </button>
+                    
+                    <div className="flex items-center justify-between">
+                       <button className="flex items-center gap-3 text-[10px] font-black uppercase tracking-[0.4em] text-cocoa group/link">
+                          <span className="border-b border-nude/30 group-hover/link:border-nude transition-all duration-500 pb-1">Ver Mais</span>
+                          <ArrowUpRight size={14} className="text-nude group-hover/link:translate-x-1 group-hover/link:-translate-y-1 transition-transform" />
+                       </button>
+                       <div className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-nude/40 opacity-0 group-hover:opacity-100 group-hover:border-nude/40 transition-all duration-700 delay-300">
+                          <Plus size={18} />
+                       </div>
+                    </div>
                   </div>
                 </div>
               </motion.div>
             ))}
           </AnimatePresence>
+        </motion.div>
+
+        {/* Bottom CTA Area */}
+        <motion.div 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          className="mt-24 pt-16 border-t border-white/5 flex flex-col items-center"
+        >
+           <p className="text-charcoal text-sm uppercase tracking-[0.4em] mb-8 font-black">Interessado em outros tratamentos?</p>
+           <a href="#" className="font-serif text-3xl text-nude italic hover:text-cocoa transition-colors flex items-center gap-4 group">
+             Consultar lista completa 
+             <div className="w-10 h-10 rounded-full border border-nude/20 flex items-center justify-center group-hover:bg-nude group-hover:text-cream transition-all duration-500">
+               <ArrowUpRight size={18} />
+             </div>
+           </a>
         </motion.div>
       </div>
     </section>

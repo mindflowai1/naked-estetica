@@ -21,23 +21,24 @@
         theme: {
           extend: {
             colors: {
-              cream: '#F4F0ED',
-              'cream-dark': '#EBE5E0',
-              'off-white': '#F8F5F3',
-              beige: '#ECE1D3',
-              nude: '#BF9F88',
+              // Paleta Dark Re-mapeada
+              cream: '#0F0E0D',       // Background Principal (Preto Ébano)
+              'cream-dark': '#141312', // Superfícies Secundárias
+              'off-white': '#181615',  // Seções Alternadas
+              beige: '#1D1B19',        // Seções de Destaque
+              nude: '#BF9F88',         // Acento (Mantido, brilha no escuro)
               'nude-light': '#D6C0B0',
-              cocoa: '#68503E',
-              'cocoa-dark': '#4A382A',
-              charcoal: '#8A7F76',
-              line: '#D9D1CA',
+              cocoa: '#F4F0ED',        // TEXTO PRINCIPAL (Invertido para Creme Marfim)
+              'cocoa-dark': '#FFFFFF',
+              charcoal: '#A19790',     // TEXTO SECUNDÁRIO (Cinza Quente)
+              line: '#262422',         // Divisórias escuras
             },
             fontFamily: {
               serif: ['Cormorant Garamond', 'serif'],
               sans: ['Manrope', 'sans-serif'],
             },
             backgroundImage: {
-              'marble-noise': "url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22 opacity=%220.05%22/%3E%3C/svg%3E')",
+              'marble-noise': "url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22 opacity=%220.08%22/%3E%3C/svg%3E')",
             }
           }
         }
@@ -46,8 +47,8 @@
     <style>
       body {
         font-family: 'Manrope', sans-serif;
-        background-color: #F4F0ED;
-        color: #68503E;
+        background-color: #0F0E0D;
+        color: #F4F0ED;
         overflow-x: hidden;
       }
       h1, h2, h3, h4, h5, h6 {
@@ -59,6 +60,10 @@
       .scrollbar-hide {
           -ms-overflow-style: none;
           scrollbar-width: none;
+      }
+      ::selection {
+        background-color: #BF9F88;
+        color: #0F0E0D;
       }
     </style>
   <script type="importmap">
@@ -77,7 +82,6 @@
 </head>
   <body>
     <div id="root"></div>
-    <!-- Script de entrada para carregar o React -->
     <script type="module" src="/index.tsx"></script>
   </body>
 </html>

@@ -44,20 +44,17 @@ const Header: React.FC = () => {
 
   return (
     <>
-      {/* UI Protection Layer - Sutil para legibilidade no topo */}
-      <div className={`fixed top-0 left-0 right-0 h-32 bg-gradient-to-b from-black/15 to-transparent pointer-events-none z-[45] transition-opacity duration-700 ${isScrolled ? 'opacity-0' : 'opacity-100'}`} />
+      <div className={`fixed top-0 left-0 right-0 h-32 bg-gradient-to-b from-black/40 to-transparent pointer-events-none z-[45] transition-opacity duration-700 ${isScrolled ? 'opacity-0' : 'opacity-100'}`} />
 
-      {/* Main Header - Opacidade ajustada de 40% para 65% no scroll para melhor contraste */}
       <header 
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ease-in-out ${
           isScrolled 
-            ? 'bg-[#F4F0ED]/65 backdrop-blur-2xl py-4 border-b border-line/15 shadow-sm' 
-            : 'bg-transparent backdrop-blur-[2px] py-6 lg:py-8 border-b border-white/5'
+            ? 'bg-[#0F0E0D]/80 backdrop-blur-2xl py-4 border-b border-white/5 shadow-2xl' 
+            : 'bg-transparent py-6 lg:py-8 border-b border-white/5'
         }`}
       >
         <div className="max-w-[1400px] mx-auto px-6 lg:px-12 flex items-center justify-between">
           
-          {/* Logo Container - Aumentado de h-7/h-9 para h-10/h-13 */}
           <div 
             className="flex-shrink-0 cursor-pointer h-9 lg:h-13 flex items-center" 
             onClick={() => scrollToSection('#hero')}
@@ -65,50 +62,39 @@ const Header: React.FC = () => {
             <img 
               src={logoUrl} 
               alt="Naked Laser Logo" 
-              className={`h-full w-auto transition-all duration-500 object-contain ${
-                isScrolled ? 'brightness-100' : 'brightness-0 invert opacity-100'
-              }`}
+              className="h-full w-auto brightness-0 invert opacity-100 transition-all duration-500 object-contain"
             />
           </div>
 
-          {/* Desktop Menu */}
           <nav className="hidden lg:flex items-center space-x-12">
             {navLinks.map((link) => (
               <button
                 key={link.label}
                 onClick={() => scrollToSection(link.href)}
-                className={`text-[10px] uppercase font-sans font-black tracking-[0.3em] transition-all relative group ${
-                  isScrolled 
-                    ? 'text-cocoa hover:text-cocoa' 
-                    : 'text-white hover:text-white'
-                }`}
+                className="text-[10px] uppercase font-sans font-black tracking-[0.3em] transition-all relative group text-white/80 hover:text-nude"
               >
                 {link.label}
-                <span className={`absolute -bottom-1 left-0 w-0 h-[1px] transition-all duration-300 group-hover:w-full ${
-                  isScrolled ? 'bg-nude' : 'bg-white/70'
-                }`} />
+                <span className="absolute -bottom-1 left-0 w-0 h-[1px] transition-all duration-300 group-hover:w-full bg-nude" />
               </button>
             ))}
           </nav>
 
-          {/* Desktop CTA */}
           <div className="hidden lg:block">
             <Button 
               variant={isScrolled ? "primary" : "glass"} 
-              className={`!px-7 !py-2.5 !text-[9px] !tracking-[0.3em] !font-black transition-all duration-500 shadow-sm ${
-                !isScrolled ? '!text-white !border-white/25 !bg-white/10 hover:!bg-white/20 backdrop-blur-md' : 'bg-cocoa hover:bg-cocoa-dark shadow-cocoa/10'
+              className={`!px-7 !py-2.5 !text-[9px] !tracking-[0.3em] !font-black transition-all duration-500 ${
+                !isScrolled ? '!text-white !border-white/20 !bg-white/5 hover:!bg-white/10' : 'bg-nude hover:bg-nude-light text-cream'
               }`}
             >
               CONTATO
             </Button>
           </div>
 
-          {/* Toggle Button - Opacidade aumentada no scroll para 90% */}
           <button 
             className={`lg:hidden flex items-center justify-center w-12 h-12 rounded-full transition-all duration-500 border ${
               isScrolled 
-                ? 'bg-cocoa/90 border-cocoa/10 text-white shadow-md' 
-                : 'bg-white/15 backdrop-blur-md border-white/40 text-white shadow-2xl'
+                ? 'bg-nude/90 border-white/10 text-cream' 
+                : 'bg-white/10 backdrop-blur-md border-white/20 text-white'
             }`}
             onPointerDown={() => setMobileMenuOpen(true)}
             aria-label="Abrir menu"
@@ -118,7 +104,6 @@ const Header: React.FC = () => {
         </div>
       </header>
 
-      {/* Mobile Menu Overlay */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
@@ -129,23 +114,20 @@ const Header: React.FC = () => {
             className="fixed inset-0 z-[100] bg-cream flex flex-col overflow-hidden touch-none"
             style={{ willChange: 'opacity' }}
           >
-            {/* Texture Layer */}
             <div className="absolute inset-0 bg-marble-noise opacity-15 pointer-events-none"></div>
             
-            {/* Inner Header - Logo maior no menu mobile também */}
             <div className="flex items-center justify-between p-8 relative z-10">
               <div className="h-9">
-                <img src={logoUrl} alt="Naked Laser" className="h-full w-auto object-contain" />
+                <img src={logoUrl} alt="Naked Laser" className="h-full w-auto object-contain brightness-0 invert" />
               </div>
               <button 
-                className="w-12 h-12 flex items-center justify-center rounded-full bg-cocoa text-white shadow-xl active:scale-90 transition-transform"
+                className="w-12 h-12 flex items-center justify-center rounded-full bg-nude text-cream shadow-xl active:scale-90 transition-transform"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <X className="w-6 h-6" />
               </button>
             </div>
 
-            {/* Navigation Links */}
             <nav className="flex flex-col items-center justify-center flex-grow space-y-10 relative z-10 px-8 text-center">
               {navLinks.map((link, i) => (
                 <motion.button
@@ -168,27 +150,21 @@ const Header: React.FC = () => {
                 transition={{ delay: 0.35, duration: 0.3 }}
                 className="pt-10 w-full max-w-xs"
               >
-                <Button variant="primary" onClick={() => setMobileMenuOpen(false)} className="!w-full !py-5 !text-[11px] !tracking-[0.4em] shadow-xl">
+                <Button variant="primary" onClick={() => setMobileMenuOpen(false)} className="!w-full !py-5 !text-[11px] !tracking-[0.4em] !bg-nude !text-cream">
                   FALE CONOSCO
                 </Button>
               </motion.div>
             </nav>
 
-            {/* Footer info in menu */}
-            <motion.div 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.45, duration: 0.3 }}
-              className="p-8 text-center relative z-10 border-t border-line/20"
-            >
+            <div className="p-8 text-center relative z-10 border-t border-white/5">
               <div className="flex justify-center gap-8 mb-6">
-                <a href="#" className="text-cocoa/50 hover:text-cocoa transition-colors"><Instagram size={24} /></a>
-                <a href="#" className="text-cocoa/50 hover:text-cocoa transition-colors"><MessageCircle size={24} /></a>
+                <a href="#" className="text-charcoal hover:text-nude transition-colors"><Instagram size={24} /></a>
+                <a href="#" className="text-charcoal hover:text-nude transition-colors"><MessageCircle size={24} /></a>
               </div>
               <p className="text-[10px] uppercase tracking-[0.5em] text-charcoal/60 font-black">
                 Belo Horizonte • Savassi
               </p>
-            </motion.div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

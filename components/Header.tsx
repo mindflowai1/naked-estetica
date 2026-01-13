@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Instagram, MessageCircle } from 'lucide-react';
+import { X, Instagram, MessageCircle, Menu } from 'lucide-react';
 import Button from './Button';
 import { SectionId } from '../types';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -44,32 +44,30 @@ const Header: React.FC = () => {
 
   return (
     <>
-      {/* UI Protection Layer for Hero Section */}
-      <div className={`fixed top-0 left-0 right-0 h-32 bg-gradient-to-b from-black/40 to-transparent pointer-events-none z-[45] transition-opacity duration-500 ${isScrolled ? 'opacity-0' : 'opacity-100'}`} />
+      {/* UI Protection Layer - Sutil para legibilidade no topo */}
+      <div className={`fixed top-0 left-0 right-0 h-32 bg-gradient-to-b from-black/15 to-transparent pointer-events-none z-[45] transition-opacity duration-700 ${isScrolled ? 'opacity-0' : 'opacity-100'}`} />
 
+      {/* Main Header - Opacidade ajustada de 40% para 65% no scroll para melhor contraste */}
       <header 
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ease-in-out ${
           isScrolled 
-            ? 'bg-[#F4F0ED]/95 backdrop-blur-xl py-4 border-b border-line/30 shadow-sm' 
-            : 'bg-transparent py-6 lg:py-8'
+            ? 'bg-[#F4F0ED]/65 backdrop-blur-2xl py-4 border-b border-line/15 shadow-sm' 
+            : 'bg-transparent backdrop-blur-[2px] py-6 lg:py-8 border-b border-white/5'
         }`}
       >
         <div className="max-w-[1400px] mx-auto px-6 lg:px-12 flex items-center justify-between">
           
-          {/* Logo */}
+          {/* Logo Container - Aumentado de h-7/h-9 para h-10/h-13 */}
           <div 
-            className="flex-shrink-0 cursor-pointer h-7 lg:h-9 flex items-center" 
+            className="flex-shrink-0 cursor-pointer h-9 lg:h-13 flex items-center" 
             onClick={() => scrollToSection('#hero')}
           >
             <img 
               src={logoUrl} 
               alt="Naked Laser Logo" 
-              className={`h-full w-auto transition-all duration-300 object-contain ${
-                isScrolled ? 'brightness-100' : 'brightness-0 invert'
+              className={`h-full w-auto transition-all duration-500 object-contain ${
+                isScrolled ? 'brightness-100' : 'brightness-0 invert opacity-100'
               }`}
-              style={{ 
-                filter: isScrolled ? 'none' : 'drop-shadow(0px 1px 2px rgba(0,0,0,0.3))' 
-              }}
             />
           </div>
 
@@ -81,13 +79,13 @@ const Header: React.FC = () => {
                 onClick={() => scrollToSection(link.href)}
                 className={`text-[10px] uppercase font-sans font-black tracking-[0.3em] transition-all relative group ${
                   isScrolled 
-                    ? 'text-cocoa/70 hover:text-cocoa' 
-                    : 'text-white hover:text-white drop-shadow-md'
+                    ? 'text-cocoa hover:text-cocoa' 
+                    : 'text-white hover:text-white'
                 }`}
               >
                 {link.label}
                 <span className={`absolute -bottom-1 left-0 w-0 h-[1px] transition-all duration-300 group-hover:w-full ${
-                  isScrolled ? 'bg-nude' : 'bg-white'
+                  isScrolled ? 'bg-nude' : 'bg-white/70'
                 }`} />
               </button>
             ))}
@@ -97,107 +95,103 @@ const Header: React.FC = () => {
           <div className="hidden lg:block">
             <Button 
               variant={isScrolled ? "primary" : "glass"} 
-              className={`!px-7 !py-2.5 !text-[9px] !tracking-[0.3em] !font-black ${
-                !isScrolled ? '!text-white !border-white/40 !bg-white/10 hover:!bg-white/20' : ''
+              className={`!px-7 !py-2.5 !text-[9px] !tracking-[0.3em] !font-black transition-all duration-500 shadow-sm ${
+                !isScrolled ? '!text-white !border-white/25 !bg-white/10 hover:!bg-white/20 backdrop-blur-md' : 'bg-cocoa hover:bg-cocoa-dark shadow-cocoa/10'
               }`}
             >
               CONTATO
             </Button>
           </div>
 
-          {/* Mobile Menu Toggle - Faster interaction */}
+          {/* Toggle Button - Opacidade aumentada no scroll para 90% */}
           <button 
-            className={`lg:hidden flex items-center justify-center w-11 h-11 rounded-full transition-all duration-300 border ${
+            className={`lg:hidden flex items-center justify-center w-12 h-12 rounded-full transition-all duration-500 border ${
               isScrolled 
-                ? 'bg-cocoa border-cocoa text-white' 
-                : 'bg-white/10 backdrop-blur-md border-white/30 text-white'
+                ? 'bg-cocoa/90 border-cocoa/10 text-white shadow-md' 
+                : 'bg-white/15 backdrop-blur-md border-white/40 text-white shadow-2xl'
             }`}
-            onClick={() => setMobileMenuOpen(true)}
+            onPointerDown={() => setMobileMenuOpen(true)}
             aria-label="Abrir menu"
           >
-            <div className="flex flex-col gap-1.5 items-end">
-              <span className="h-[1.5px] bg-current transition-all w-5"></span>
-              <span className="h-[1.5px] bg-current transition-all w-3"></span>
-            </div>
+            <Menu size={20} />
           </button>
         </div>
+      </header>
 
-        {/* Mobile Menu Overlay - Optimized for performance */}
-        <AnimatePresence>
-          {mobileMenuOpen && (
-            <motion.div
-              initial={{ opacity: 0, scale: 1.02 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 1.02 }}
-              transition={{ duration: 0.25, ease: "easeOut" }}
-              style={{ willChange: 'opacity, transform' }}
-              className="fixed inset-0 z-[100] bg-[#F4F0ED] flex flex-col overflow-hidden"
-            >
-              {/* Texture Layer */}
-              <div className="absolute inset-0 bg-marble-noise opacity-[0.05] pointer-events-none"></div>
-              
-              {/* Header inside menu */}
-              <div className="flex items-center justify-between p-8 relative z-10">
-                <div className="h-7">
-                  <img src={logoUrl} alt="Naked Laser" className="h-full w-auto object-contain" />
-                </div>
-                <button 
-                  className="w-11 h-11 flex items-center justify-center rounded-full bg-cocoa text-white shadow-lg active:scale-95 transition-transform"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  <X className="w-5 h-5" />
-                </button>
+      {/* Mobile Menu Overlay */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25, ease: "easeOut" }}
+            className="fixed inset-0 z-[100] bg-cream flex flex-col overflow-hidden touch-none"
+            style={{ willChange: 'opacity' }}
+          >
+            {/* Texture Layer */}
+            <div className="absolute inset-0 bg-marble-noise opacity-15 pointer-events-none"></div>
+            
+            {/* Inner Header - Logo maior no menu mobile também */}
+            <div className="flex items-center justify-between p-8 relative z-10">
+              <div className="h-9">
+                <img src={logoUrl} alt="Naked Laser" className="h-full w-auto object-contain" />
               </div>
+              <button 
+                className="w-12 h-12 flex items-center justify-center rounded-full bg-cocoa text-white shadow-xl active:scale-90 transition-transform"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <X className="w-6 h-6" />
+              </button>
+            </div>
 
-              {/* Navigation Links - Reduced delay and duration for snappiness */}
-              <nav className="flex flex-col items-center justify-center flex-grow space-y-8 relative z-10 px-8 text-center">
-                {navLinks.map((link, i) => (
-                  <motion.button
-                    key={link.label}
-                    initial={{ opacity: 0, y: 15 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.05 + (i * 0.05), duration: 0.3 }}
-                    onClick={() => scrollToSection(link.href)}
-                    className="group"
-                  >
-                    <span className="block font-serif text-3xl text-cocoa group-hover:text-nude transition-colors duration-200">
-                      {link.label}
-                    </span>
-                    <span className="block h-[1px] w-0 bg-nude mx-auto mt-2 transition-all duration-300 group-hover:w-full"></span>
-                  </motion.button>
-                ))}
-                
-                <motion.div 
+            {/* Navigation Links */}
+            <nav className="flex flex-col items-center justify-center flex-grow space-y-10 relative z-10 px-8 text-center">
+              {navLinks.map((link, i) => (
+                <motion.button
+                  key={link.label}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.35, duration: 0.3 }}
-                  className="pt-8 w-full max-w-xs"
+                  transition={{ delay: 0.05 + (i * 0.05), duration: 0.3 }}
+                  onClick={() => scrollToSection(link.href)}
+                  className="group py-2"
                 >
-                  <Button variant="primary" onClick={() => setMobileMenuOpen(false)} className="!w-full !py-4 !text-[10px] !tracking-[0.3em] shadow-xl">
-                    FALE CONOSCO
-                  </Button>
-                </motion.div>
-              </nav>
-
-              {/* Footer info in menu */}
+                  <span className="block font-serif text-4xl text-cocoa active:text-nude transition-colors duration-200">
+                    {link.label}
+                  </span>
+                </motion.button>
+              ))}
+              
               <motion.div 
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.45, duration: 0.3 }}
-                className="p-8 text-center relative z-10 border-t border-line/20"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.35, duration: 0.3 }}
+                className="pt-10 w-full max-w-xs"
               >
-                <div className="flex justify-center gap-6 mb-4">
-                  <a href="#" className="text-cocoa/50 hover:text-cocoa transition-colors"><Instagram size={18} /></a>
-                  <a href="#" className="text-cocoa/50 hover:text-cocoa transition-colors"><MessageCircle size={18} /></a>
-                </div>
-                <p className="text-[9px] uppercase tracking-[0.4em] text-charcoal/50 font-black">
-                  Belo Horizonte • Savassi
-                </p>
+                <Button variant="primary" onClick={() => setMobileMenuOpen(false)} className="!w-full !py-5 !text-[11px] !tracking-[0.4em] shadow-xl">
+                  FALE CONOSCO
+                </Button>
               </motion.div>
+            </nav>
+
+            {/* Footer info in menu */}
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.45, duration: 0.3 }}
+              className="p-8 text-center relative z-10 border-t border-line/20"
+            >
+              <div className="flex justify-center gap-8 mb-6">
+                <a href="#" className="text-cocoa/50 hover:text-cocoa transition-colors"><Instagram size={24} /></a>
+                <a href="#" className="text-cocoa/50 hover:text-cocoa transition-colors"><MessageCircle size={24} /></a>
+              </div>
+              <p className="text-[10px] uppercase tracking-[0.5em] text-charcoal/60 font-black">
+                Belo Horizonte • Savassi
+              </p>
             </motion.div>
-          )}
-        </AnimatePresence>
-      </header>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 };

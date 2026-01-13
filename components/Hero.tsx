@@ -6,8 +6,16 @@ import { SectionId } from '../types';
 
 const Hero: React.FC = () => {
   const { scrollY } = useScroll();
-  const yImage = useTransform(scrollY, [0, 500], [0, 100]);
-  const opacityText = useTransform(scrollY, [0, 400], [1, 0]);
+  
+  // Parallax da imagem: move para baixo enquanto scrolla
+  const yImage = useTransform(scrollY, [0, 1000], [0, 200]);
+  
+  // Opacidade do texto: começa a sumir mais tarde e termina bem depois
+  // Antes era [0, 400], agora o fade começa só após 200px e vai até 900px
+  const opacityText = useTransform(scrollY, [200, 900], [1, 0]);
+  
+  // Deslocamento do texto: sobe levemente enquanto some (efeito parallax inverso)
+  const yText = useTransform(scrollY, [0, 900], [0, -100]);
 
   return (
     <section id={SectionId.HOME} className="relative min-h-[100svh] w-full bg-cream overflow-hidden flex flex-col">
@@ -50,7 +58,7 @@ const Hero: React.FC = () => {
 
       {/* --- CONTENT AREA --- */}
       <motion.div 
-        style={{ opacity: opacityText }}
+        style={{ opacity: opacityText, y: yText }}
         className="relative z-10 w-full lg:w-[45%] lg:h-screen flex flex-col justify-center px-8 lg:pl-24 lg:pr-12 py-12 lg:py-0 order-2 lg:order-1"
       >
         <div className="max-w-xl">
